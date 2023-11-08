@@ -1,7 +1,9 @@
 ﻿using KlumperBank.Data;
 using KlumperBank.Models;
 using KlumperBank.Repositories.Contracts;
+using KlumperBank.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace KlumperBank.Repositories
 {
@@ -13,7 +15,7 @@ namespace KlumperBank.Repositories
             _context = context;
         }
 
-        public async Task<User> UpdateUser(int id, User model)
+        public async Task<User> UpdateUser(int id, UpdateViewModel model)
         {
             var user =  await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -21,7 +23,7 @@ namespace KlumperBank.Repositories
                 throw new Exception("O usuario nao existe");
 
             user.Name = model.Name;
-            user.Balance = model.Balance;
+            //user.Balance = model.Balance;
 
             _context.Users.Update(user);
             await _context.SaveChangesAsync();

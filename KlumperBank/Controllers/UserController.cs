@@ -1,5 +1,6 @@
 ﻿using KlumperBank.Models;
 using KlumperBank.Repositories.Contracts;
+using KlumperBank.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KlumperBank.Controllers
@@ -11,11 +12,14 @@ namespace KlumperBank.Controllers
         private readonly IGetUserRepository _getUserRepository;
         private readonly IPostUserRepository _postUserRepository;
         private readonly IUpdateUserRepository _UpdateUserRepository;
-        public UserController(IGetUserRepository getUserRepository, IPostUserRepository postUserRepository, IUpdateUserRepository updateUserRepository)
+        private readonly ITransactionUserRepository _transactionUserRepository;
+        public UserController(IGetUserRepository getUserRepository, IPostUserRepository postUserRepository, IUpdateUserRepository updateUserRepository, ITransactionUserRepository transactionUserRepository)
         {
             _getUserRepository = getUserRepository;
             _postUserRepository = postUserRepository;
             _UpdateUserRepository = updateUserRepository;
+            _transactionUserRepository = transactionUserRepository;
+
         }
 
 
@@ -49,10 +53,21 @@ namespace KlumperBank.Controllers
         [HttpPut("v1/user/{id:int}")]
         public async Task<IActionResult>Update(
             [FromRoute] int id,
-            [FromBody] User model
+            [FromBody] UpdateViewModel model
             )
         {
             var user = await _UpdateUserRepository.UpdateUser(id, model);
+            return Ok(user);
+        }
+
+        [HttpPut("v1/user/transaction/{senderId:int}/{receiverId:int}/{amount:int}")]
+        public async Task<IActionResult> Update(
+            [FromRoute] int senderId,
+            [FromRoute] int receiverId,
+            [FromRoute] int amount
+            )
+        {
+            var user = await _transactionUserRepository.TransactionUser(senderId, receiverId, amount);
             return Ok(user);
         }
     }

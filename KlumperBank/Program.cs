@@ -9,6 +9,7 @@ builder.Services.AddDbContext<KlumperBankDtContext>();
 builder.Services.AddTransient<IGetUserRepository, GetUserRepository>();
 builder.Services.AddTransient<IPostUserRepository, PostUserRepository>();
 builder.Services.AddTransient<IUpdateUserRepository, UpdateUserRepository>();
+builder.Services.AddTransient<ITransactionUserRepository, TransactionUserRepository>();
 
 
 builder.Services.AddControllers();
