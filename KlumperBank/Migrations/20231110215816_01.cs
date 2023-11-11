@@ -17,6 +17,7 @@ namespace KlumperBank.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "NVARCHAR(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "NVARCHAR(100)", maxLength: 100, nullable: false),
                     Balance = table.Column<int>(type: "INTEGER", nullable: false),
                     Role = table.Column<string>(type: "NVARCHAR(50)", maxLength: 50, nullable: false)
                 },

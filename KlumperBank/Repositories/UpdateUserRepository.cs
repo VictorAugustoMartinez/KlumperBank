@@ -23,7 +23,7 @@ namespace KlumperBank.Repositories
                 throw new Exception("O usuario nao existe");
 
             user.Name = model.Name;
-            //user.Balance = model.Balance;
+            user.Password = model.Password;
 
             _context.Users.Update(user);
             await _context.SaveChangesAsync();

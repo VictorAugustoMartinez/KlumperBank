@@ -1,6 +1,6 @@
 ﻿namespace KlumperBank.ViewModel
 {
-    public class UpdateViewModel
+    public class LoginViewModel
     {
         public string Name { get; set; }
         public string Password { get; set; }

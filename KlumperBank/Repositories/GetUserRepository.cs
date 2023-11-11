@@ -14,6 +14,13 @@ namespace KlumperBank.Repositories
             _context = context;
         }
 
+        public User GetUserForLogin(string name, string password)
+        {
+            return _context.Users
+                .FirstOrDefault(x =>
+                    x.Name.ToLower() == name.ToLower() && x.Password.ToLower() == password.ToLower());              
+        }
+
         public Task<User> GetUserById(int userId)
         {
                 return _context.Users.AsNoTracking().Where(x => x.Id == userId).FirstOrDefaultAsync();

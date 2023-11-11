@@ -1,6 +1,8 @@
 ﻿using KlumperBank.Models;
 using KlumperBank.Repositories.Contracts;
+using KlumperBank.Services;
 using KlumperBank.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KlumperBank.Controllers
@@ -21,6 +23,9 @@ namespace KlumperBank.Controllers
             _transactionUserRepository = transactionUserRepository;
 
         }
+
+
+
 
 
         [HttpPost("v1/user")]
@@ -61,7 +66,8 @@ namespace KlumperBank.Controllers
         }
 
         [HttpPut("v1/user/transaction/{senderId:int}/{receiverId:int}/{amount:int}")]
-        public async Task<IActionResult> Update(
+        [Authorize(Roles = "adm")]
+        public async Task<IActionResult> Transaction(
             [FromRoute] int senderId,
             [FromRoute] int receiverId,
             [FromRoute] int amount

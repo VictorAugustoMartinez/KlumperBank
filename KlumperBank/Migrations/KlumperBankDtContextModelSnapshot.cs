@@ -39,6 +39,12 @@ namespace KlumperBank.Migrations
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("Name");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("NVARCHAR")
+                        .HasColumnName("Password");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasMaxLength(50)
