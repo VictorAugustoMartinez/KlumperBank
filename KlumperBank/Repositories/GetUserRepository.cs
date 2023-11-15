@@ -1,7 +1,11 @@
 ﻿using KlumperBank.Data;
 using KlumperBank.Models;
 using KlumperBank.Repositories.Contracts;
+using KlumperBank.ViewModel;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.EntityFrameworkCore;
+using SecureIdentity.Password;
 
 namespace KlumperBank.Repositories
 {
@@ -14,11 +18,19 @@ namespace KlumperBank.Repositories
             _context = context;
         }
 
-        public User GetUserForLogin(string name, string password)
+        public User GetUserForLogin(string email, string password, LoginViewModel model)
         {
-            return _context.Users
+            var user = _context.Users
                 .FirstOrDefault(x =>
-                    x.Name.ToLower() == name.ToLower() && x.Password.ToLower() == password.ToLower());              
+                    x.Email.ToLower() == email.ToLower());
+
+            if (user == null)
+                throw new Exception("#01 Usuario ou senha invalidos");        
+
+            if (!PasswordHasher.Verify(user.Password, model.Password))
+                 throw new Exception("#02 Usuario ou senha invalidos");
+
+            return user;
         }
 
         public Task<User> GetUserById(int userId)

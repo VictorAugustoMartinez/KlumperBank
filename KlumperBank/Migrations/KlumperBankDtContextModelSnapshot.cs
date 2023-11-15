@@ -33,6 +33,12 @@ namespace KlumperBank.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("Balance");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("NVARCHAR")
+                        .HasColumnName("Email");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)

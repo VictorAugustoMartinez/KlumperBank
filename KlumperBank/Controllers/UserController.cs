@@ -24,11 +24,8 @@ namespace KlumperBank.Controllers
 
         }
 
-
-
-
-
         [HttpPost("v1/user")]
+        //[Authorize(Roles = "adm")]
          public async Task<IActionResult> Create(
              [FromBody] User model
              ) 
@@ -38,6 +35,7 @@ namespace KlumperBank.Controllers
          }
 
         [HttpGet("v1/user")]
+        [Authorize(Roles = "adm")]
         public async Task<IActionResult>GetAll()
         {
                 var users = await _getUserRepository.GetUsers();
@@ -46,6 +44,7 @@ namespace KlumperBank.Controllers
 
 
         [HttpGet("v1/user/{id:int}")]
+        [Authorize(Roles = "adm")]
         public async Task<IActionResult> GetById(
             [FromRoute]int id
         )
@@ -66,7 +65,7 @@ namespace KlumperBank.Controllers
         }
 
         [HttpPut("v1/user/transaction/{senderId:int}/{receiverId:int}/{amount:int}")]
-        [Authorize(Roles = "adm")]
+        [Authorize]
         public async Task<IActionResult> Transaction(
             [FromRoute] int senderId,
             [FromRoute] int receiverId,

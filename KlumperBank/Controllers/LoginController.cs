@@ -1,7 +1,9 @@
 ﻿using KlumperBank.Models;
 using KlumperBank.Repositories.Contracts;
 using KlumperBank.Services;
+using KlumperBank.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KlumperBank.Controllers
 {
@@ -19,15 +21,16 @@ namespace KlumperBank.Controllers
             [HttpPost]
         [Route("v1/login")]
         public async Task<ActionResult<dynamic>> Login(
-                [FromBody] User model)
+                [FromBody] LoginViewModel model)
         {
-            var user = _getUserRepository.GetUserForLogin(model.Name, model.Password);
+
+            var user = _getUserRepository.GetUserForLogin(model.Email, model.Password, model);
 
             if (user == null)
                 return NotFound(new { message = "Usuário ou senha inválidos" });
 
             var token = TokenService.GenerateToken(user);
-            user.Password = "*****";
+            //user.Password = "*****";
             return new
             {
                 user = user,

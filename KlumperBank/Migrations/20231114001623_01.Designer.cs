@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KlumperBank.Migrations
 {
     [DbContext(typeof(KlumperBankDtContext))]
-    [Migration("20231110215816_01")]
+    [Migration("20231114001623_01")]
     partial class _01
     {
         /// <inheritdoc />
@@ -35,6 +35,12 @@ namespace KlumperBank.Migrations
                     b.Property<int>("Balance")
                         .HasColumnType("INTEGER")
                         .HasColumnName("Balance");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("NVARCHAR")
+                        .HasColumnName("Email");
 
                     b.Property<string>("Name")
                         .IsRequired()

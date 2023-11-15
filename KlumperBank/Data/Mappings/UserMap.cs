@@ -21,6 +21,11 @@ namespace KlumperBank.Data.Mappings
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(50);
 
+            builder.Property(x => x.Email)
+                .HasColumnName("Email")
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50);
+
             builder.Property(x => x.Password)
                 .HasColumnName("Password")
                 .HasColumnType("NVARCHAR")
