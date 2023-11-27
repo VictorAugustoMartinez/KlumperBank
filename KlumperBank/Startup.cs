@@ -4,7 +4,6 @@ using KlumperBank.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using KlumperBank.Services;
 
 namespace KlumperBank
 {

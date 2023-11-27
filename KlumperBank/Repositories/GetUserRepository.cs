@@ -2,8 +2,6 @@
 using KlumperBank.Models;
 using KlumperBank.Repositories.Contracts;
 using KlumperBank.ViewModel;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.EntityFrameworkCore;
 using SecureIdentity.Password;
 

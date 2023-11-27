@@ -1,9 +1,7 @@
-﻿using KlumperBank.Models;
-using KlumperBank.Repositories.Contracts;
+﻿using KlumperBank.Repositories.Contracts;
 using KlumperBank.Services;
 using KlumperBank.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KlumperBank.Controllers
 {

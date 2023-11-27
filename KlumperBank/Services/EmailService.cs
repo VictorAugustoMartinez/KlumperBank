@@ -1,12 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Net;
-using System.Net.Mail;
+﻿using SendGrid.Helpers.Mail;
+using SendGrid;
 
 namespace KlumperBank.Services;
 
 public static class EmailService
 {
-    public static bool Send(
+
+    public static async Task Send(
         string toName,
         string toEmail,
         string subject,
@@ -14,27 +14,12 @@ public static class EmailService
         string fromName = "Equipe pangolim-projects",
         string fromEmail = "pangolimprojects@gmail.com")
     {
-        var smtpClient = new SmtpClient(Settings.Smtp.Host, Settings.Smtp.Port);
+        var client = new SendGridClient(Settings.Smtp.UserName);
+        var from = new EmailAddress(fromEmail, fromName);
+        var to = new EmailAddress(toEmail, toName);
 
-        smtpClient.Credentials = new NetworkCredential(Settings.Smtp.UserName, Settings.Smtp.Password);
-        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        smtpClient.EnableSsl = true;
-        var mail = new MailMessage();
-
-        mail.From = new MailAddress(fromEmail, fromName);
-        mail.To.Add(new MailAddress(toEmail, toName));
-        mail.Subject = subject;
-        mail.Body = body;
-        mail.IsBodyHtml = true;
-
-        try
-        {
-            smtpClient.Send(mail);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            return false;
-        }
+        var htmlContent = subject + " " + body;
+        var msg = MailHelper.CreateSingleEmail(from, to, subject, body, htmlContent);
+        var response = await client.SendEmailAsync(msg);
     }
 }

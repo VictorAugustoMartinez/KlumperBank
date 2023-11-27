@@ -1,5 +1,4 @@
 ﻿using KlumperBank.Models;
-using KlumperBank.ViewModel;
 
 namespace KlumperBank.Repositories.Contracts
 {

@@ -18,7 +18,7 @@ namespace KlumperBank.Repositories
             var user = new User { Name = model.Name, Email = model.Email, Balance = model.Balance, Role = model.Role};
             var password = PasswordGenerator.Generate(4);
 
-            EmailService.Send(user.Name, user.Email, "Bem vindo ao blog!", $"Sua senha é {password}");
+            await EmailService.Send(user.Name, user.Email, "Bem vindo ao blog!", $"Sua senha é {password}");
 
             user.Password = PasswordHasher.Hash(password);
 

@@ -1,5 +1,4 @@
-﻿using KlumperBank.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace KlumperBank.Controllers
 {

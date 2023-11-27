@@ -1,6 +1,5 @@
 ﻿using KlumperBank.Models;
 using KlumperBank.Repositories.Contracts;
-using KlumperBank.Services;
 using KlumperBank.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
