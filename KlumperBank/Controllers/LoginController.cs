@@ -9,30 +9,30 @@ namespace KlumperBank.Controllers
     public class LoginController : ControllerBase
     {
 
-        private readonly IGetUserRepository _getUserRepository;
-        public LoginController(IGetUserRepository getUserRepository)
+        private readonly IUserRepository _userRepository;
+        public LoginController(IUserRepository UserRepository)
         {
-            _getUserRepository = getUserRepository;
+            _userRepository = UserRepository;
         }
 
 
-            [HttpPost]
+        [HttpPost]
         [Route("v1/login")]
         public async Task<ActionResult<dynamic>> Login(
-                [FromBody] LoginViewModel model)
+        [FromBody] LoginViewModel model)
         {
 
-            var user = _getUserRepository.GetUserForLogin(model.Email, model.Password, model);
+            var user = _userRepository.GetUserForLogin(model.Email, model.Password, model);
 
             if (user == null)
                 return NotFound(new { message = "Usuário ou senha inválidos" });
 
             var token = TokenService.GenerateToken(user);
-            //user.Password = "*****";
+            user.Password = "*****";
             return new
             {
-                user = user,
-                token = token
+                user,
+                token
             };
         }
     }

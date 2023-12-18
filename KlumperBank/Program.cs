@@ -10,9 +10,9 @@ var app = builder.Build();
 startup.Configure(app, app.Environment);
 
 
-    var smtp = new Settings.SmtpConfiguration();
-    app.Configuration.GetSection("SmtpConfiguration").Bind(smtp);
-    Settings.Smtp = smtp;
+var smtp = new Settings.SmtpConfiguration();
+app.Configuration.GetSection("SmtpConfiguration").Bind(smtp);
+Settings.Smtp = smtp;
 
 
 app.Run();

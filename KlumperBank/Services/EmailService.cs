@@ -14,12 +14,12 @@ public static class EmailService
         string fromName = "Equipe pangolim-projects",
         string fromEmail = "pangolimprojects@gmail.com")
     {
-        var client = new SendGridClient(Settings.Smtp.UserName);
+        var client = new SendGridClient(Settings.Smtp.Password);
         var from = new EmailAddress(fromEmail, fromName);
         var to = new EmailAddress(toEmail, toName);
 
         var htmlContent = subject + " " + body;
         var msg = MailHelper.CreateSingleEmail(from, to, subject, body, htmlContent);
-        var response = await client.SendEmailAsync(msg);
+        await client.SendEmailAsync(msg);
     }
 }

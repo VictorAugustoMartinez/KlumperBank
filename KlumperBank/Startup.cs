@@ -19,10 +19,7 @@ namespace KlumperBank
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<KlumperBankDtContext>();
-            services.AddTransient<IGetUserRepository, GetUserRepository>();
-            services.AddTransient<IPostUserRepository, PostUserRepository>();
-            services.AddTransient<IUpdateUserRepository, UpdateUserRepository>();
-            services.AddTransient<ITransactionUserRepository, TransactionUserRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddCors();
             services.AddControllers();
 
