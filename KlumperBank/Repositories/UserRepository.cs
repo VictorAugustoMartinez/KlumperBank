@@ -23,16 +23,19 @@ namespace KlumperBank.Repositories
                     x.Email.ToLower() == email.ToLower());
 
             if (user == null)
-                throw new Exception("#01 Usuario ou senha invalidos");
+                throw new ArgumentNullException("#03 Usuario ou senha invalidos");
 
             if (!PasswordHasher.Verify(user.Password, model.Password))
-                throw new Exception("#02 Usuario ou senha invalidos");
+                throw new ArgumentNullException("#04 Usuario ou senha invalidos");
             return user;
         }
 
         public Task<User> GetUserById(int userId)
         {
-            return _context.Users.AsNoTracking().Where(x => x.Id == userId).FirstOrDefaultAsync();
+            var user = _context.Users.AsNoTracking().Where(x => x.Id == userId).FirstOrDefaultAsync();
+            if (user == null)
+                throw new ArgumentNullException();
+            return user;
         }
 
         public Task<List<User>> GetUsers()
@@ -59,10 +62,10 @@ namespace KlumperBank.Repositories
             var receiverUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == receiverId);
 
             if (senderUser == null)
-                throw new Exception("O usuario nao existe");
+                throw new ArgumentNullException("#02 Usuario nao encontrado");
 
             if (receiverUser == null)
-                throw new Exception("O usuario nao existe");
+                throw new ArgumentNullException("#01 Usuario nao encontrado");
 
             if (senderUser.Balance < amount)
                 throw new Exception("O usuario nao tem o dinheiro para realizar a transferencia");
@@ -81,7 +84,7 @@ namespace KlumperBank.Repositories
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (user == null)
-                throw new Exception("O usuario nao existe");
+                throw new ArgumentNullException();
 
             user.Name = model.Name;
             user.Password = model.Password;
